@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<modification>
+
+	<name>Starter Module</name>
+    <code>starter-module</code>
+    <version>1.0.0</version>
+    <author>Marco Silvestroni</author>
+    <link>https://github.com/marcosilvestroni/bannerpro</link>
+
+</modification>
