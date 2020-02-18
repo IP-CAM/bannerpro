@@ -11,7 +11,7 @@ class ControllerExtensionModuleBannerPro extends Controller
 
 		$this->load->model('extension/module/banner_pro');
 
-		$banner_id= null;
+		$banner_id = null;
 		if (isset($this->request->get['module_id'])) $banner_id = $this->model_extension_module_banner_pro->getBannerIdFromModuleId($this->request->get['module_id']);
 
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
@@ -19,17 +19,29 @@ class ControllerExtensionModuleBannerPro extends Controller
 			$this->load->model('setting/module');
 			if (!isset($this->request->get['module_id'])) {
 				$this->model_setting_module->addModule('banner_pro', $this->request->post);
-			} else {
-				$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);
-			}
-			$this->request->post['module_id'] = $this->request->get['module_id'];
+				$models = $this->model_setting_module->getModulesByCode('banner_pro');
+				$module_id = null;
+				foreach ($models as $key => $value) {
+					$data = json_decode($value['setting']);
+					
+					if ($data->name === $this->request->post['name']) {
+						$module_id = $value['module_id'];//FIX UNIQUE NAME FOR BANNERS
+						break;
+					}
+				}
+				$this->request->post['module_id'] = $module_id;
+				$banner_id= $this->model_extension_module_banner_pro->addBanner($this->request->post);
+				$this->request->post['banner_id'] = $banner_id;
+				$this->model_setting_module->editModule($module_id, $this->request->post);
 
-			$banner_id = $this->model_extension_module_banner_pro->getBannerIdFromModuleId($this->request->get['module_id']);
-			if (isset($banner_id)) {
-				$this->model_extension_module_banner_pro->editBanner($banner_id, $this->request->post);
 			} else {
-				$this->model_extension_module_banner_pro->addBanner($this->request->post);
+				$this->request->post['module_id'] = $this->request->get['module_id'];
+				$banner_id = $this->model_extension_module_banner_pro->getBannerIdFromModuleId($this->request->post['module_id']);
+				$this->request->post['banner_id'] = $banner_id;
+				$this->model_setting_module->editModule($this->request->get['module_id'], $this->request->post);
+				$this->model_extension_module_banner_pro->editBanner($banner_id, $this->request->post);
 			}
+
 
 			$this->session->data['success'] = $this->language->get('text_success');
 
@@ -181,7 +193,7 @@ class ControllerExtensionModuleBannerPro extends Controller
 		}
 
 		$data['cancel'] = $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . $url, true);
-		$banner_info=null;
+		$banner_info = null;
 		if (isset($banner_id) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$banner_info = $this->model_extension_module_banner_pro->getBanner($banner_id);
 		}
@@ -190,8 +202,8 @@ class ControllerExtensionModuleBannerPro extends Controller
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['name'] = $this->setValueData('name', $banner_info);
-		$data['status'] = $this->setValueData('status', $banner_info,true);
-		$data['layout'] = $this->setValueData('name', $banner_info);
+		$data['status'] = $this->setValueData('status', $banner_info, true);
+		$data['layout'] = $this->setValueData('layout', $banner_info,'banner_pro');
 
 
 		$this->load->model('localisation/language');

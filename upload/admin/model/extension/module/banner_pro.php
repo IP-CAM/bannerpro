@@ -15,7 +15,7 @@ class ModelExtensionModuleBannerPro extends Model
 			  `banner_id` int(11) NOT NULL AUTO_INCREMENT,
               `module_id` int(11) NOT NULL,
 			  `name` varchar(64) NOT NULL,
-              `layout` varchar(100) NOT NULL DEFAULT 'banner_pro' ,
+              `layout` varchar(100) NOT NULL,
 			  `status` tinyint(1) NOT NULL,
 			  PRIMARY KEY (`banner_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
@@ -65,11 +65,14 @@ class ModelExtensionModuleBannerPro extends Model
 
     public function addBanner($data)
     {
-        $this->db->query("INSERT INTO " . DB_PREFIX . "bannerpro 
+        $this->db->query(
+            "INSERT INTO " . DB_PREFIX . "bannerpro 
         SET name = '" . $this->db->escape($data['name']) . "', 
         status = '" . (int) $data['status'] . "' , 
-        module_id = '" . (int) $data['module_id'] . "' , 
-        layout = '" . (int) $data['layout'] . "'");
+        module_id = '" . (int) $data['module_id'] . "', 
+        layout = '" . $data['layout'] . "'"
+        
+        );
 
         $banner_id = $this->db->getLastId();
 
@@ -101,9 +104,9 @@ class ModelExtensionModuleBannerPro extends Model
         $this->db->query("UPDATE " . DB_PREFIX . "bannerpro 
         SET name = '" . $this->db->escape($data['name']) . "', 
         status = '" . (int) $data['status'] . "' , 
-        module_id = '" . (int) $data['module_id'] . "' , 
-        layout = '" . (int) $data['layout'] . "' 
-        WHERE banner_id = '" . (int) $banner_id . "'");
+        module_id = '" . (int) $data['module_id'] . "', 
+        layout = '" . $data['layout'] . "'
+             WHERE banner_id = '" . (int) $banner_id . "'");
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "bannerpro_image 
         WHERE banner_id = '" . (int) $banner_id . "'");
@@ -179,7 +182,7 @@ class ModelExtensionModuleBannerPro extends Model
     {
         if ($module_id) {
             $query = $this->db->query("SELECT banner_id FROM " . DB_PREFIX . "bannerpro WHERE module_id= '" . (int) $module_id . "'");
-            return $query->row['banner_id'];
+            return (count($query->row)>0)  ? $query->row['banner_id'] : null;
         } else {
             return null;
         }

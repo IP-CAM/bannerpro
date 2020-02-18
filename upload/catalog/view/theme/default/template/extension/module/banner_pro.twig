@@ -1,3 +1,8 @@
-<div class="starter-module-class">
+<div class="banner-pro-class">
     <h4>{{ heading_title }}</h4>
+    <pre>
+    {% for banner in banners %}
+    <div>{{banner.title}}</div>
+    {% endfor %}
+    </pre>
 </div>
