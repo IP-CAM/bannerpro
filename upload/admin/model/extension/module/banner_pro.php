@@ -16,6 +16,8 @@ class ModelExtensionModuleBannerPro extends Model
               `module_id` int(11) NOT NULL,
 			  `name` varchar(64) NOT NULL,
               `layout` varchar(100) NOT NULL,
+              `width` varchar(50) NOT NULL,
+              `height` varchar(50) NOT NULL,
 			  `status` tinyint(1) NOT NULL,
 			  PRIMARY KEY (`banner_id`)
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;";
@@ -70,7 +72,9 @@ class ModelExtensionModuleBannerPro extends Model
         SET name = '" . $this->db->escape($data['name']) . "', 
         status = '" . (int) $data['status'] . "' , 
         module_id = '" . (int) $data['module_id'] . "', 
-        layout = '" . $data['layout'] . "'"
+        layout = '" . $data['layout'] . "',
+        width = '" . $data['width'] . "',
+        height = '" . $data['height'] . "'"
         
         );
 
@@ -105,7 +109,9 @@ class ModelExtensionModuleBannerPro extends Model
         SET name = '" . $this->db->escape($data['name']) . "', 
         status = '" . (int) $data['status'] . "' , 
         module_id = '" . (int) $data['module_id'] . "', 
-        layout = '" . $data['layout'] . "'
+        layout = '" . $data['layout'] . "',
+        width = '" . $data['width'] . "',
+        height = '" . $data['height'] . "'
              WHERE banner_id = '" . (int) $banner_id . "'");
 
         $this->db->query("DELETE FROM " . DB_PREFIX . "bannerpro_image 

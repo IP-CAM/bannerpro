@@ -204,6 +204,8 @@ class ControllerExtensionModuleBannerPro extends Controller
 		$data['name'] = $this->setValueData('name', $banner_info);
 		$data['status'] = $this->setValueData('status', $banner_info, true);
 		$data['layout'] = $this->setValueData('layout', $banner_info,'banner_pro');
+		$data['width'] = $this->setValueData('width', $banner_info);
+		$data['height'] = $this->setValueData('height', $banner_info);
 
 
 		$this->load->model('localisation/language');
