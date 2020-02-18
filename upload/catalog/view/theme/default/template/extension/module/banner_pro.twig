@@ -1,8 +1,30 @@
+<style> 
+.cont{
+    display:flex;
+    justify-content: space-between;
+}
+.item{
+    padding:2rem;
+
+}
+</style>
+
 <div class="banner-pro-class">
     <h4>{{ heading_title }}</h4>
-    <pre>
     {% for banner in banners %}
-    <div>{{banner.title}}</div>
+    <div class="cont">
+        
+         <div class="item">{{banner.title}}</div>
+         <div class="item">{{banner.subtitle}}</div>
+         <div class="item">{{banner.description}}</div>
+         <div class="item">{{banner.link1}}</div>
+         <div class="item">{{banner.label1}}</div>
+         <div class="item">{{banner.link2}}</div>
+         <div class="item">{{banner.label2}}</div>
+         <div class="item">{{banner.video}}</div>
+         <div class="item">{{banner.image}}</div>
+    </div>
     {% endfor %}
-    </pre>
+    
+    
 </div>
