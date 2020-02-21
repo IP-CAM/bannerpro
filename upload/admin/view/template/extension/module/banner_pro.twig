@@ -37,7 +37,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-width">{{ entry_width }}</label>
             <div class="col-sm-10">
-              <input type="text" name="width" value="{{ width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control" />
+              <input type="number" name="width" value="{{ width }}" placeholder="{{ entry_width }}" id="input-width" class="form-control" />
               {% if error_width %}
               <div class="text-danger">{{ error_width }}</div>
               {% endif %}
@@ -46,7 +46,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-height">{{ entry_height }}</label>
             <div class="col-sm-10">
-              <input type="text" name="height" value="{{ height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control" />
+              <input type="number" name="height" value="{{ height }}" placeholder="{{ entry_height }}" id="input-height" class="form-control" />
               {% if error_height %}
               <div class="text-danger">{{ error_height }}</div>
               {% endif %}
