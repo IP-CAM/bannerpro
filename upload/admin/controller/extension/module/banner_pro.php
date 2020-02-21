@@ -23,17 +23,16 @@ class ControllerExtensionModuleBannerPro extends Controller
 				$module_id = null;
 				foreach ($models as $key => $value) {
 					$data = json_decode($value['setting']);
-					
+
 					if ($data->name === $this->request->post['name']) {
-						$module_id = $value['module_id'];//FIX UNIQUE NAME FOR BANNERS
+						$module_id = $value['module_id']; //FIX UNIQUE NAME FOR BANNERS
 						break;
 					}
 				}
 				$this->request->post['module_id'] = $module_id;
-				$banner_id= $this->model_extension_module_banner_pro->addBanner($this->request->post);
+				$banner_id = $this->model_extension_module_banner_pro->addBanner($this->request->post);
 				$this->request->post['banner_id'] = $banner_id;
 				$this->model_setting_module->editModule($module_id, $this->request->post);
-
 			} else {
 				$this->request->post['module_id'] = $this->request->get['module_id'];
 				$banner_id = $this->model_extension_module_banner_pro->getBannerIdFromModuleId($this->request->post['module_id']);
@@ -84,7 +83,7 @@ class ControllerExtensionModuleBannerPro extends Controller
 		$value = $initialVal;
 		if (isset($this->request->post[$name])) {
 			$value = $this->request->post[$name];
-		} elseif (!empty($module_info)) {
+		} elseif (!empty($module_info) && isset($module_info[$name])) {
 			$value = $module_info[$name];
 		}
 
@@ -203,7 +202,7 @@ class ControllerExtensionModuleBannerPro extends Controller
 
 		$data['name'] = $this->setValueData('name', $banner_info);
 		$data['status'] = $this->setValueData('status', $banner_info, true);
-		$data['layout'] = $this->setValueData('layout', $banner_info,'banner_pro');
+		$data['layout'] = $this->setValueData('layout', $banner_info, 'banner_pro');
 		$data['width'] = $this->setValueData('width', $banner_info);
 		$data['height'] = $this->setValueData('height', $banner_info);
 
