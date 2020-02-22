@@ -75,7 +75,7 @@ class ModelExtensionModuleBannerPro extends Model
         layout = '" . $data['layout'] . "',
         width = '" . $data['width'] . "',
         height = '" . $data['height'] . "'"
-        
+
         );
 
         $banner_id = $this->db->getLastId();
@@ -188,9 +188,15 @@ class ModelExtensionModuleBannerPro extends Model
     {
         if ($module_id) {
             $query = $this->db->query("SELECT banner_id FROM " . DB_PREFIX . "bannerpro WHERE module_id= '" . (int) $module_id . "'");
-            return (count($query->row)>0)  ? $query->row['banner_id'] : null;
+            return (count($query->row) > 0)  ? $query->row['banner_id'] : null;
         } else {
             return null;
         }
+    }
+
+    public function isUniqueName($name)
+    {
+        $query = $this->db->query("SELECT * FROM  " . DB_PREFIX . "bannerpro WHERE name ='" . $this->db->escape($name) . "'");
+        return count($query->row);
     }
 }

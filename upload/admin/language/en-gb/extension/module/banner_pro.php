@@ -37,4 +37,5 @@ $_['entry_description']  = 'Description';
 // Error
 $_['error_permission'] = 'Warning: You do not have permission to modify banners pro!';
 $_['error_name']       = 'Banner Pro Name must be between 3 and 64 characters!';
+$_['error_name_unique']       = 'Banner Pro Name must be unique, there\'s another Module with the same name.';
 $_['error_title']      = 'Banner Pro Title must be between 2 and 64 characters!';
