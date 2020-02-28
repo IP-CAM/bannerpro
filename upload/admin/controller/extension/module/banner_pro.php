@@ -268,7 +268,7 @@ class ControllerExtensionModuleBannerPro extends Controller
 			$this->error['name'] = $this->language->get('error_name');
 		}
 		
-		if ($this->request->post['name'] && $this->model_extension_module_banner_pro->isUniqueName($this->request->post['name'])) {
+		if ($this->request->post['name'] && $this->model_extension_module_banner_pro->isUniqueName($this->request->post['name'],isset($this->request->get['module_id']))) {
 			$this->error['name_unique'] = $this->language->get('error_name_unique');
 		}
 
