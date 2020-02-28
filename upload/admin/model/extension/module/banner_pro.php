@@ -194,9 +194,9 @@ class ModelExtensionModuleBannerPro extends Model
         }
     }
 
-    public function isUniqueName($name)
+    public function isUniqueName($name, $update=null)
     {
         $query = $this->db->query("SELECT * FROM  " . DB_PREFIX . "bannerpro WHERE name ='" . $this->db->escape($name) . "'");
-        return count($query->row);
+        return $update?  count($query->row)=1 : count($query->row)=0;
     }
 }
